@@ -2,6 +2,7 @@
 
 import android.os.Bundle;
 
+import com.example.notesactivity.UI.NotesAdapter;
 import com.example.notesactivity.model.NoteEntity;
 import com.example.notesactivity.utilities.SampleData;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -29,6 +30,7 @@ import butterknife.ButterKnife;
      RecyclerView mRecyclerView;
 
     private List<NoteEntity> notesData = new ArrayList<>();
+    private NotesAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +63,9 @@ import butterknife.ButterKnife;
         mRecyclerView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(layoutManager);
+
+        mAdapter = new NotesAdapter(notesData, this);
+        mRecyclerView.setAdapter(mAdapter);
      }
 
      @Override
