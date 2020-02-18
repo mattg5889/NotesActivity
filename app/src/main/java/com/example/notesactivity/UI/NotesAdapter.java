@@ -1,9 +1,7 @@
 package com.example.notesactivity.UI;
 
 import android.content.Context;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
-import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -12,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.notesactivity.R;
-import com.example.notesactivity.model.NoteEntity;
+import com.example.notesactivity.database.NoteEntity;
 
 import java.util.List;
 

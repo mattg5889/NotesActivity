@@ -1,6 +1,6 @@
 package com.example.notesactivity.utilities;
 
-import com.example.notesactivity.model.NoteEntity;
+import com.example.notesactivity.database.NoteEntity;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -30,9 +30,9 @@ public class SampleData {
 
     public static List <NoteEntity> getNotes(){
         List<NoteEntity> notes = new ArrayList<>();
-        notes.add(new NoteEntity(1,getDate(0),sampTxt1));
-        notes.add(new NoteEntity(2,getDate(-1),sampTxt2));
-        notes.add(new NoteEntity(3,getDate(-2),sampTxt3));
+        notes.add(new NoteEntity(getDate(0),sampTxt1));
+        notes.add(new NoteEntity(getDate(-1),sampTxt2));
+        notes.add(new NoteEntity(getDate(-2),sampTxt3));
 
         return notes;
     }
