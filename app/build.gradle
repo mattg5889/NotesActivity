@@ -11,6 +11,7 @@ android {
         versionName "1.0"
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
     }
     buildTypes {
         release {
@@ -21,6 +22,7 @@ android {
     compileOptions {
         sourceCompatibility = 1.8
         targetCompatibility = 1.8
+
     }
 }
 
@@ -48,6 +50,8 @@ dependencies {
     //4 lines above from https://stackoverflow.com/questions/54520546/cannot-find-a-version-of-com-google-code-findbugsjsr305-that-satisfies-the-ve
 
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.1'
+
+
 
 
 }

@@ -5,10 +5,11 @@ import android.os.Bundle;
 
 import com.example.notesactivity.UI.NotesAdapter;
 import com.example.notesactivity.database.NoteEntity;
-import com.example.notesactivity.utilities.SampleData;
+import com.example.notesactivity.viewmodel.MainViewModel;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -36,6 +37,7 @@ import butterknife.OnClick;
 
     private List<NoteEntity> notesData = new ArrayList<>();
     private NotesAdapter mAdapter;
+    private MainViewModel mViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +47,7 @@ import butterknife.OnClick;
         setSupportActionBar(toolbar);
 
         ButterKnife.bind(this);
-
+        initViewModel();
         initRecyclerView();
 
 //        FloatingActionButton fab = findViewById(R.id.fab);
@@ -57,12 +59,17 @@ import butterknife.OnClick;
 //            }
 //        });
 
-        notesData.addAll(SampleData.getNotes());
+        notesData.addAll(mViewModel.mNotes);
         for(NoteEntity note :
                 notesData){
             Log.i("PlainNotes",note.toString());
         }
     }
+
+     private void initViewModel() {
+         mViewModel = ViewModelProviders.of(this)
+                 .get(MainViewModel.class);
+     }
 
      private void initRecyclerView() {
         mRecyclerView.setHasFixedSize(true);
@@ -88,10 +95,17 @@ import butterknife.OnClick;
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_addSampleData) {
+            Log.i("onOptionsItemsSelected", "onOptionsItemSelected - add sample data");
+            addSampleData();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
-}
+
+     private void addSampleData() {
+         Log.i("onOptionsItemsSelected", "onOptionsItemSelected: MainActivity - add sample data");
+        mViewModel.addSampleData();
+     }
+ }
