@@ -5,6 +5,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
 
 import com.example.notesactivity.database.AppRepository;
 import com.example.notesactivity.database.NoteEntity;
@@ -14,7 +15,7 @@ import java.util.List;
 
 public class MainViewModel extends AndroidViewModel {
 
-    public List<NoteEntity> mNotes;
+    public LiveData<List<NoteEntity>> mNotes;
     private AppRepository mRepository;
 
     public MainViewModel(@NonNull Application application) {

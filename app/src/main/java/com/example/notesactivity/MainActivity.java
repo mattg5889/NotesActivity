@@ -9,6 +9,7 @@ import com.example.notesactivity.viewmodel.MainViewModel;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -47,28 +48,50 @@ import butterknife.OnClick;
         setSupportActionBar(toolbar);
 
         ButterKnife.bind(this);
-        initViewModel();
         initRecyclerView();
+        initViewModel();
 
-//        FloatingActionButton fab = findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
+/*   REMOVED
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
 
+     REMOVED
         notesData.addAll(mViewModel.mNotes);
         for(NoteEntity note :
                 notesData){
             Log.i("PlainNotes",note.toString());
         }
+ */
     }
 
      private void initViewModel() {
+
+        final Observer<List<NoteEntity>> notesObserver = new Observer<List<NoteEntity>>() {
+            @Override
+            public void onChanged(List<NoteEntity> noteEntities) {
+                notesData.clear();
+                notesData.addAll(noteEntities);
+
+                if(mAdapter == null) {
+                    mAdapter = new NotesAdapter(notesData, MainActivity.this);
+                    mRecyclerView.setAdapter(mAdapter);
+                }
+                else {
+                    mAdapter.notifyDataSetChanged();
+                }
+            }
+        };
+
          mViewModel = ViewModelProviders.of(this)
                  .get(MainViewModel.class);
+
+         mViewModel.mNotes.observe(this, notesObserver);
      }
 
      private void initRecyclerView() {
@@ -76,8 +99,7 @@ import butterknife.OnClick;
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(layoutManager);
 
-        mAdapter = new NotesAdapter(notesData, this);
-        mRecyclerView.setAdapter(mAdapter);
+
      }
 
      @Override
