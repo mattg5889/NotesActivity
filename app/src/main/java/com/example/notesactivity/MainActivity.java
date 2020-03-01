@@ -121,10 +121,17 @@ import butterknife.OnClick;
             Log.i("onOptionsItemsSelected", "onOptionsItemSelected - add sample data");
             addSampleData();
             return true;
+        } else if (id == R.id.action_deleteAll){
+            deleteAllNotes();
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
+
+     private void deleteAllNotes() {
+        mViewModel.deleteAllNotes();
+     }
 
      private void addSampleData() {
          Log.i("onOptionsItemsSelected", "onOptionsItemSelected: MainActivity - add sample data");

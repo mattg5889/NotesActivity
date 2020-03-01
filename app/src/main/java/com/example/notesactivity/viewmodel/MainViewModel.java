@@ -30,4 +30,8 @@ public class MainViewModel extends AndroidViewModel {
         Log.i("onOptionsItemsSelected", "onOptionsItemSelected: MainViewModel - add sample data");
         mRepository.addSampleData();
     }
+
+    public void deleteAllNotes() {
+        mRepository.deleteAllNotes();
+    }
 }
