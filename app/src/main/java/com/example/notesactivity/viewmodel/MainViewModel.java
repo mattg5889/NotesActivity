@@ -9,7 +9,6 @@ import androidx.lifecycle.LiveData;
 
 import com.example.notesactivity.database.AppRepository;
 import com.example.notesactivity.database.NoteEntity;
-import com.example.notesactivity.utilities.SampleData;
 
 import java.util.List;
 

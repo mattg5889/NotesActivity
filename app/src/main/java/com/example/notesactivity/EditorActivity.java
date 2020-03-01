@@ -1,11 +1,10 @@
 package com.example.notesactivity;
 
 import android.os.Bundle;
-
-import com.example.notesactivity.database.NoteEntity;
-import com.example.notesactivity.viewmodel.EditorViewModel;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,15 +12,13 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.TextView;
+import com.example.notesactivity.database.NoteEntity;
+import com.example.notesactivity.viewmodel.EditorViewModel;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.example.notesactivity.utilities.Constants.EDITING_KEY;
 import static com.example.notesactivity.utilities.Constants.NOTE_ID_KEY;
 
 public class EditorActivity extends AppCompatActivity {
@@ -30,7 +27,7 @@ public class EditorActivity extends AppCompatActivity {
     TextView mTextView;
 
     private EditorViewModel mViewModel;
-    private boolean mNewNote;
+    private boolean mNewNote, mEditing;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +40,10 @@ public class EditorActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
+        if (savedInstanceState != null){
+            mEditing = savedInstanceState.getBoolean(EDITING_KEY);
+        }
+
         initViewModel();
     }
 
@@ -52,8 +53,9 @@ public class EditorActivity extends AppCompatActivity {
         mViewModel.mLiveNote.observe(this, new Observer<NoteEntity>() {
             @Override
             public void onChanged(NoteEntity noteEntity) {
-                mTextView.setText(noteEntity.getText());
-
+                if (noteEntity != null && !mEditing) {
+                    mTextView.setText(noteEntity.getText());
+                }
             }
         });
 
@@ -99,5 +101,11 @@ public class EditorActivity extends AppCompatActivity {
     private void saveAndReturn() {
         mViewModel.saveNote(mTextView.getText().toString());
         finish();
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        outState.putBoolean(EDITING_KEY, true);
+        super.onSaveInstanceState(outState);
     }
 }

@@ -1,29 +1,29 @@
  package com.example.notesactivity;
 
-import android.content.Intent;
-import android.os.Bundle;
+ import android.content.Intent;
+ import android.os.Bundle;
+ import android.util.Log;
+ import android.view.Menu;
+ import android.view.MenuItem;
 
-import com.example.notesactivity.UI.NotesAdapter;
-import com.example.notesactivity.database.NoteEntity;
-import com.example.notesactivity.viewmodel.MainViewModel;
+ import androidx.appcompat.app.AppCompatActivity;
+ import androidx.appcompat.widget.Toolbar;
+ import androidx.lifecycle.Observer;
+ import androidx.lifecycle.ViewModelProviders;
+ import androidx.recyclerview.widget.DividerItemDecoration;
+ import androidx.recyclerview.widget.LinearLayoutManager;
+ import androidx.recyclerview.widget.RecyclerView;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+ import com.example.notesactivity.UI.NotesAdapter;
+ import com.example.notesactivity.database.NoteEntity;
+ import com.example.notesactivity.viewmodel.MainViewModel;
 
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
+ import java.util.ArrayList;
+ import java.util.List;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
+ import butterknife.BindView;
+ import butterknife.ButterKnife;
+ import butterknife.OnClick;
 
  public class MainActivity extends AppCompatActivity {
 
@@ -99,7 +99,10 @@ import butterknife.OnClick;
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(layoutManager);
 
+         DividerItemDecoration divider = new DividerItemDecoration(
+                 mRecyclerView.getContext(), layoutManager.getOrientation());
 
+         mRecyclerView.addItemDecoration(divider);
      }
 
      @Override
